@@ -1,0 +1,23 @@
+{
+  "name": "cs50-final",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XNeme91/CS50-Final.git"
+  },
+  "author": "Imtiaz Ahmed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XNeme91/CS50-Final/issues"
+  },
+  "homepage": "https://github.com/XNeme91/CS50-Final#readme",
+  "description": "",
+  "devDependencies": {
+    "electron": "^35.2.1"
+  }
+}
