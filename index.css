@@ -1,0 +1,45 @@
+body {
+    background-color:#232136FF;
+    color: #ffffff;
+    display: grid;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: start;
+    align-content: stretch;
+    justify-items: start;
+    justify-content: stretch;
+}
+
+#menu {
+    margin: 5px 5px 5px 5px;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#timer {
+    margin: 5px 5px 5px 5px;
+    align-self: start;
+    justify-self: center;
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#switch {
+    justify-self: center;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.time-method {
+    width: auto;
+    height: auto;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
+    justify-items: center;
+    grid-column: 2;
+    grid-row: 3;
+}
