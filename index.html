@@ -3,6 +3,7 @@
   <head>
     <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
@@ -19,9 +20,30 @@
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" id="menu">
       <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
     </svg>
-    <h1 id="timer">Timer</h1>
-    <button id="switch">test</button>
-    <button class="time-method" id="pomo">POMO</button>
-    <button class="time-method" id="long">long</button>
+
+    <h1 id="timer-label">Timer</h1>
+
+
+    <div id="switch-toggle">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
+      </div>
+    </div>
+
+
+    <div class="time-method">
+      <button id="pomo">POMO</button>
+      <button id="long">long</button>
+      <button id="long">short</button>
+    </div>
+
+    <h2 id="timer">X time left</h2>
+    
+    <div class="timer-controls">
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+    </div>
+
   </body>
 </html>
