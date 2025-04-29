@@ -13,6 +13,12 @@ body {
     justify-content: stretch;
 }
 
+/* general svg */
+
+svg:hover {
+    fill: red;
+}
+
 /* Hamburger menu */
 #menu {
     margin: 5px 5px 5px 5px;
