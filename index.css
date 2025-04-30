@@ -2,79 +2,12 @@
 body {
     background-color:#232136FF;
     color: #ffffff;
-    display: grid;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 3fr 1fr;
-    align-items: start;
-    align-content: stretch;
-    justify-items: start;
-    justify-content: stretch;
+
 }
 
 /* general svg */
 
 svg:hover {
     fill: red;
-}
-
-/* Hamburger menu */
-#menu {
-    margin: 5px 5px 5px 5px;
-    grid-column: 1;
-    grid-row: 1;
-}
-
-/* Title of app */
-#timer-label {
-    margin: 5px 5px 5px 5px;
-    align-self: start;
-    justify-self: center;
-    grid-column: 2;
-    grid-row: 1;
-}
-
-/* Switch between pomodoro
-    and animedoro */
-#switch-toggle {
-    justify-self: center;
-    grid-column: 2;
-    grid-row: 2;
-}
-
-
-/* Toggle between different times
-    See pomodoro session length
-    see length for short break
-    see length for long break */
-.time-method {
-    width: auto;
-    height: auto;
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: start;
-    justify-items: center;
-    align-self: center;
-    justify-self: center;
-    grid-column: 2;
-    grid-row: 3;
-}
-
-/* For the timer */
-#timer {
-    align-self: center;
-    justify-self: center;
-    grid-column: 2;
-    grid-row: 4;
-}
-
-/* For the start and stop timer controls */
-.timer-controls {
-    align-self: end;
-    justify-self: center;
-    grid-column: 2;
-    grid-row: 5;
 }
 
