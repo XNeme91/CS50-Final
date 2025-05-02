@@ -3,8 +3,8 @@ const pomodoro = document.getElementById("pomo");
 const long_break = document.getElementById("long");
 
 let seconds = 0;
-let timer = document.getElementById("timer");
-let timerControls = document.getElementById("time-controls");
+const timer = document.getElementById("timer");
+const timerControls = document.querySelector("#timer-controls");
 let timerStart = false;
 
 // Change display timer only when timer is not running
@@ -31,8 +31,19 @@ function convertSecondsToTime(seconds) {
   return `${String(minutes).padStart(2, "0")}:${String(remainingSeconds).padStart(2, "0")}`;
 }
 
-while (true) {
+timerControls.addEventListener("mouseover", (event) => {
     if (!timerStart) {
-        timerControls.src = "src/play-circle.png";
+        timerControls.src = "src/play-circle-fill.svg";
+    } else {
+        timerControls.src = "src/pause-circle-fill.svg";
     }
-}
+    
+});
+
+timerControls.addEventListener("mouseout", (event) => {
+    if (!timerStart) {
+        timerControls.src = "src/play-circle.svg";
+    } else {
+        timerControls.src = "src/pause-circle.svg";
+    }
+});
