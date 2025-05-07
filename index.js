@@ -3,7 +3,7 @@ const pomodoro = document.getElementById("pomo");
 const long_break = document.getElementById("long");
 
 let intervalId = null;
-let seconds = 3600;
+let seconds = 5;
 const timer = document.getElementById("timer");
 const timerControls = document.querySelector("#timer-controls");
 let timerStart = false;
@@ -79,10 +79,12 @@ function updateTimer() {
 
         if (seconds == 0) {
             if (onBreak) {
+                new window.Notification("Break Time Over!", { body: "Start Studying!" })
                 seconds = 3600;
                 onBreak = false;
                 timer.innerHTML = convertSecondsToTime(seconds);
             } else {
+                new window.Notification("Study Time Over!", { body: "Enjoy Your Break!" })
                 seconds = 1200;
                 onBreak = true;
                 timer.innerHTML = convertSecondsToTime(seconds);
