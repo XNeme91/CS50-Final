@@ -4,6 +4,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "start warning": "electron --trace-warnings .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,9 @@
     "electron": "^35.2.1"
   },
   "dependencies": {
-    "bootstrap": "^5.3.5"
+    "axios": "^1.9.0",
+    "bootstrap": "^5.3.5",
+    "dotenv": "^16.5.0",
+    "node-fetch": "^3.3.2"
   }
 }
