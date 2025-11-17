@@ -3,7 +3,7 @@ const pomodoro = document.getElementById("pomo");
 const long_break = document.getElementById("long");
 
 let intervalId = null;
-let seconds = 5;
+let seconds = 3600;
 const timer = document.getElementById("timer");
 const timerControls = document.querySelector("#timer-controls");
 let timerStart = false;
