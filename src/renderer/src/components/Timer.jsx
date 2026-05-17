@@ -20,7 +20,7 @@ export default function Timer({isRunning, seconds, setSeconds}) {
 
 
   return (
-    <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
+    <div className="grid grid-flow-col gap-5 text-center auto-cols-max justify-center m-5 pr-5">
   <div className="flex flex-col">
   </div>
   <div className="flex flex-col">
