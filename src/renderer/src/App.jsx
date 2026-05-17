@@ -1,7 +1,11 @@
 import './index.css'
+import { useState } from 'react'
+import Timer from './components/Timer'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+  const [isTimerRunning, setIsTimerRunning] = useState(false)
+  const [seconds, setSeconds] = useState(3600)
 
   return (
     <>
@@ -33,6 +37,15 @@ function App() {
           </button>
         </div>
       </div>
+
+      <Timer 
+        isRunning={isTimerRunning}
+        seconds={seconds}
+        setSeconds={setSeconds}
+      />
+      <button onClick={() => setIsTimerRunning(true)}>Start Timer</button>
+      <button onClick={() => setSeconds(3600)}>Reset Timer</button>
+      <button onClick={() => setIsTimerRunning(false)}>Pause Timer</button>
     </>
   )
 }
