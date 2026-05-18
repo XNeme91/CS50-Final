@@ -1,11 +1,23 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
+import { join, resolve } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let mainWindow
+
+// Register custom protocol
+// Anytime animedoro:// is entered in browser, it'll open up here
+if (process.defaultApp) {
+  if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient('animedoro', process.execPath, [resolve(process.argv[1])])
+  } else {
+    app.setAsDefaultProtocolClient('animedoro')
+  }
+}
+
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -60,6 +72,40 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+})
+
+// Windows and Linux handle protocol
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+
+    dialog.showErrorBox('Welcome Back', `You arrived from: ${commandLine.pop()}`)
+  })
+
+  app.whenReady().then(() => {
+    createWindow()
+  })
+}
+
+// MacOS handle protocol
+app.whenReady().then(() => {
+  createWindow()
+})
+
+app.on('open-url', (event, url) => {
+  dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
+})
+
+app.whenReady().then(() => {
+  ipcMain.handle('ping', () => 'pong')
+  ipcMain.handle('anilist', () => 'user wants to login to anilist')
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
