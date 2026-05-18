@@ -27,7 +27,7 @@ export default function Navbar() {
                 {tab}
               </li>
               <li>
-                <a>AniList</a>
+                <button onClick={() => navigate('/anilist')}>AniList</button>
               </li>
             </ul>
           </div>
