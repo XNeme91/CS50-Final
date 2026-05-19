@@ -2,6 +2,9 @@ import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join, resolve } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+import { exchangeCodeForToken, loginWithAniList } from './oauth'
+import { getDecryptedToken } from './anilist'
+import './anilist'
 
 let mainWindow
 
@@ -86,7 +89,13 @@ if (!gotTheLock) {
       mainWindow.focus()
     }
 
-    dialog.showErrorBox('Welcome Back', `You arrived from: ${commandLine.pop()}`)
+    const parsed = new URL(commandLine.pop())
+    console.log(parsed)
+
+    const code = parsed.searchParams.get('code')
+    console.log('Authorization code:', code)
+
+    exchangeCodeForToken(code)
   })
 
   app.whenReady().then(() => {
@@ -99,13 +108,11 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-app.on('open-url', (event, url) => {
-  dialog.showErrorBox('Welcome Back', `You arrived from: ${url}`)
-})
-
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   ipcMain.handle('anilist', () => 'user wants to login to anilist')
+  ipcMain.handle('loginWithAniList', () => {loginWithAniList()})
+  ipcMain.handle('getDecryptedToken', () => getDecryptedToken())
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
