@@ -1,6 +1,9 @@
-import { shell, safeStorage } from 'electron'
+import { app, shell, safeStorage } from 'electron'
+import * as fs from 'fs'
+import * as path from 'path'
 
-let token
+const TOKEN_PATH = path.join(__dirname, 'token.bin')
+let token = null
 
 function loginWithAniList() {
   const clientId = import.meta.env.MAIN_VITE_CLIENT_ID
@@ -29,13 +32,30 @@ async function exchangeCodeForToken(code) {
   const data = await response.json()
 
   token = data.access_token
-  token = safeStorage.encryptString(token)
-  console.log('Access token:', token)
+  saveAccessToken(token)
+  console.log('Access token received')
 }
 
-function getToken() {
-  return token;
+function saveAccessToken(token) {
+  const encrypted = safeStorage.encryptString(token)
+  fs.writeFileSync(TOKEN_PATH, encrypted)
+}
+
+function getAccessToken() {
+  if (!fs.existsSync(TOKEN_PATH)) {
+    console.log('No token file found')
+    return null
+  }
+
+  const encrypted = fs.readFileSync(TOKEN_PATH)
+  return safeStorage.decryptString(encrypted)
+}
+
+function deleteAccessToken() {
+  if (fs.existsSync(TOKEN_PATH)) {
+    fs.unlinkSync(TOKEN_PATH)
+  }
 }
 
 
-export { exchangeCodeForToken, loginWithAniList, getToken }
+export { exchangeCodeForToken, loginWithAniList, getAccessToken, deleteAccessToken }
