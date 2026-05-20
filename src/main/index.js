@@ -108,6 +108,16 @@ app.whenReady().then(() => {
   createWindow()
 })
 
+app.on('open-url', (event, url) => {
+    const parsed = new URL(url)
+    console.log(parsed)
+
+    const code = parsed.searchParams.get('code')
+    console.log('Authorization code:', code)
+
+    exchangeCodeForToken(code)
+});
+
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   ipcMain.handle('anilist', () => 'user wants to login to anilist')
