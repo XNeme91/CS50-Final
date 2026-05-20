@@ -127,6 +127,8 @@ app.whenReady().then(() => {
   ipcMain.handle('getDecryptedToken', () => anilist.getDecryptedToken())
   ipcMain.handle('deleteAccessToken', () => {anilist.deleteAccessToken()})
   ipcMain.handle('getViewerData', () => anilist.fetchUserData())
+  ipcMain.handle('getUserId', () => anilist.getUserId())
+  ipcMain.handle('fetchUserAnimeList', () => anilist.fetchUserAnimeList())
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

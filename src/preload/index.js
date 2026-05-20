@@ -9,6 +9,8 @@ const api = {
   logout: () => ipcRenderer.invoke('deleteAccessToken'),  
   getToken: () => ipcRenderer.invoke('getDecryptedToken'),
   getViewer: () => ipcRenderer.invoke('getViewerData'),
+  getUserId: () => ipcRenderer.invoke('getUserId'),
+  getAnimeList: () => ipcRenderer.invoke('fetchUserAnimeList')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

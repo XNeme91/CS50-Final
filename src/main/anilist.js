@@ -1,5 +1,7 @@
 import { getAccessToken } from "./oauth"
 
+let userId = null
+
 export function getDecryptedToken() {
   const token = getAccessToken()
   if (!token) {
@@ -45,5 +47,45 @@ export async function fetchUserData() {
   `
   const data = await authorizedFetch(query)
   console.log('Viewer data:', data)
+  return data
+}
+
+export async function getUserId() {
+  const data = await fetchUserData()
+  userId = data?.data?.Viewer?.id || null
+  return userId
+}
+
+export async function fetchUserAnimeList() {
+  if (!userId) {
+    await getUserId()
+  }
+
+  const query = `
+    query ($userId: Int, $type: MediaType) {
+    MediaListCollection (userId: $userId, type: $type) {
+      lists {
+        name
+        entries {
+          id
+          media {
+            id
+            title {
+              english
+              native
+              romaji
+            }
+          }
+        }
+      }
+    }
+  }
+    `
+  const variables = {
+    userId,
+    type: 'ANIME'
+  }
+  const data = await authorizedFetch(query, variables)
+  console.log('User anime list:', data)
   return data
 }

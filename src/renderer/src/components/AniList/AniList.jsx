@@ -34,6 +34,20 @@ export default function AniList() {
             }}>
                 Get Viewer Data
             </button>
+            <button className="btn btn-warning" onClick={async () => {
+                // Handle get user ID logic here
+                const userId = await window.api.getUserId()
+                console.log('User ID:', userId)
+            }}>
+                Get User ID
+            </button>
+            <button className="btn btn-success" onClick={async () => {
+                // Handle get anime list logic here
+                const animeList = await window.api.getAnimeList()
+                console.log('Anime List:', animeList)
+            }}>
+                Get Anime List
+            </button>
         </div>
     )
 }
