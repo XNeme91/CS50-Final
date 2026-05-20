@@ -20,6 +20,20 @@ export default function AniList() {
             }}>
                 Get Decrypted Token
             </button>
+            <button className="btn btn-danger" onClick={async () => {
+                // Handle logout logic here
+                const result = await window.api.logout()
+                console.log(result)
+            }}>
+                Logout
+            </button>
+            <button className="btn btn-info" onClick={async () => {
+                // Handle get viewer data logic here
+                const viewer = await window.api.getViewer()
+                console.log(viewer)
+            }}>
+                Get Viewer Data
+            </button>
         </div>
     )
 }

@@ -5,8 +5,10 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   ping: () => ipcRenderer.invoke('ping'),
   anilist: () => ipcRenderer.invoke('anilist'),
-  login: () => ipcRenderer.invoke('loginWithAniList'),  
-  getToken: () => ipcRenderer.invoke('getDecryptedToken')
+  login: () => ipcRenderer.invoke('loginWithAniList'),
+  logout: () => ipcRenderer.invoke('deleteAccessToken'),  
+  getToken: () => ipcRenderer.invoke('getDecryptedToken'),
+  getViewer: () => ipcRenderer.invoke('getViewerData'),
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

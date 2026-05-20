@@ -2,8 +2,8 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join, resolve } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { exchangeCodeForToken, loginWithAniList } from './oauth'
-import { getDecryptedToken } from './anilist'
+import { exchangeCodeForToken, loginWithAniList, deleteAccessToken } from './oauth'
+import * as anilist from './anilist'
 import './anilist'
 
 let mainWindow
@@ -118,11 +118,15 @@ app.on('open-url', (event, url) => {
     exchangeCodeForToken(code)
 });
 
+
+// Handle IPC calls from renderer
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   ipcMain.handle('anilist', () => 'user wants to login to anilist')
   ipcMain.handle('loginWithAniList', () => {loginWithAniList()})
-  ipcMain.handle('getDecryptedToken', () => getDecryptedToken())
+  ipcMain.handle('getDecryptedToken', () => anilist.getDecryptedToken())
+  ipcMain.handle('deleteAccessToken', () => {anilist.deleteAccessToken()})
+  ipcMain.handle('getViewerData', () => anilist.fetchUserData())
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common
