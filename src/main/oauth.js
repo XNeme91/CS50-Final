@@ -5,7 +5,7 @@ import * as path from 'path'
 const TOKEN_PATH = path.join(__dirname, 'token.bin')
 let token = null
 
-function loginWithAniList() {
+export function loginWithAniList() {
   const clientId = import.meta.env.MAIN_VITE_CLIENT_ID
   const redirectUri = encodeURIComponent('animedoro://auth')
 
@@ -14,7 +14,7 @@ function loginWithAniList() {
   shell.openExternal(authUrl)
 }
 
-async function exchangeCodeForToken(code) {
+export async function exchangeCodeForToken(code) {
   const response = await fetch('https://anilist.co/api/v2/oauth/token', {
     method: 'POST',
     headers: {
@@ -36,12 +36,12 @@ async function exchangeCodeForToken(code) {
   console.log('Access token received')
 }
 
-function saveAccessToken(token) {
+export function saveAccessToken(token) {
   const encrypted = safeStorage.encryptString(token)
   fs.writeFileSync(TOKEN_PATH, encrypted)
 }
 
-function getAccessToken() {
+export function getAccessToken() {
   if (!fs.existsSync(TOKEN_PATH)) {
     console.log('No token file found')
     return null
@@ -51,11 +51,9 @@ function getAccessToken() {
   return safeStorage.decryptString(encrypted)
 }
 
-function deleteAccessToken() {
+export function deleteAccessToken() {
   if (fs.existsSync(TOKEN_PATH)) {
     fs.unlinkSync(TOKEN_PATH)
   }
 }
 
-
-export { exchangeCodeForToken, loginWithAniList, getAccessToken, deleteAccessToken }

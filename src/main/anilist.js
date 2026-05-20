@@ -1,6 +1,6 @@
 import { getAccessToken } from "./oauth"
 
-function getDecryptedToken() {
+export function getDecryptedToken() {
   const token = getAccessToken()
   if (!token) {
     console.log('No token available')
@@ -8,5 +8,3 @@ function getDecryptedToken() {
   }
   return token
 }
-
-export { getDecryptedToken }
