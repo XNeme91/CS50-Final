@@ -10,7 +10,8 @@ const api = {
   getToken: () => ipcRenderer.invoke('getDecryptedToken'),
   getViewer: () => ipcRenderer.invoke('getViewerData'),
   getUserId: () => ipcRenderer.invoke('getUserId'),
-  getAnimeList: () => ipcRenderer.invoke('fetchUserAnimeList')
+  getAnimeList: () => ipcRenderer.invoke('fetchUserAnimeList'),
+  openGitHub: () => ipcRenderer.invoke('openGitHub')
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -129,6 +129,7 @@ app.whenReady().then(() => {
   ipcMain.handle('getViewerData', () => anilist.fetchUserData())
   ipcMain.handle('getUserId', () => anilist.getUserId())
   ipcMain.handle('fetchUserAnimeList', () => anilist.fetchUserAnimeList())
+  ipcMain.handle('openGitHub', () => {shell.openExternal('https://github.com/XNeme91/CS50-Final')})
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

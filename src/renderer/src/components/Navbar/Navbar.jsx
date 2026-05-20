@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import icon from './github-icon.svg'
 
 export default function Navbar() {
     const navigate = useNavigate()
@@ -36,8 +37,8 @@ export default function Navbar() {
           <a className='btn btn-ghost text-xl'>{title}</a>
         </div>
         <div className='navbar-end'>
-          <button className='btn'>
-            Send AniList Request
+          <button className='btn bg-white border-black' onClick={() => window.api.openGitHub()}>
+            <img src={icon} alt="GitHub" style={{ width: '24px', height: '24px' }} />
           </button>
         </div>
       </div>
