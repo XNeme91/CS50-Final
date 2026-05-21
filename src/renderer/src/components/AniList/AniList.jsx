@@ -4,29 +4,33 @@ import Pagination from "../Pagination/Pagination"
 
 export default function AniList() {
     const [animeList, setAnimeList] = useState('current')
+    const [animeGroups, setAnimeGroups] = useState([])
+    const [loadingLists, setLoadingLists] = useState(false)
+    const [loadError, setLoadError] = useState(null)
 
-    // Change anime list based on button click
+    // load lists on mount
     useEffect(() => {
-        switch (animeList) {
-            case 'current':
-                break;
-            case 'planning':
-                break;
-            case 'completed':
-                break;
-            case 'dropped':
-                break;
-            case 'paused':
-                break;
-            case 'repeating':
-                break;
+        async function loadLists() {
+            setLoadingLists(true)
+            setLoadError(null)
+            try {
+                const res = await window.api.getAnimeList()
+                const lists = res?.data?.MediaListCollection?.lists ?? res?.MediaListCollection?.lists ?? res?.lists ?? res
+                setAnimeGroups(lists || [])
+            } catch (err) {
+                console.error('Error loading anime lists', err)
+                setLoadError(err?.message || String(err))
+            } finally {
+                setLoadingLists(false)
+            }
         }
-    }, [animeList])
+        loadLists()
+    }, [])
 
     return (
         <div>
             <Navbar />
-            <Pagination/>
+            <Pagination groups={animeGroups} loading={loadingLists} error={loadError} />
             <h1>AniList Page</h1>
             <p>This is the AniList page.</p>
             
@@ -68,7 +72,8 @@ export default function AniList() {
             <button className="btn btn-success" onClick={async () => {
                 // Handle get anime list logic here
                 const animeList = await window.api.getAnimeList()
-                console.log('Anime List:', animeList)
+                let animeListString = animeList.data.MediaListCollection.lists[0].entries[0]
+                console.log('Anime List:', animeListString)
             }}>
                 Get Anime List
             </button>
@@ -76,3 +81,12 @@ export default function AniList() {
         </div>
     )
 }
+
+// animeList.data.MediaListCollection.lists[0].entries[0].media
+// so animelist is the response, data is the full object
+// medialistcollection has the lists (watching, plannning, etc)
+// lists is an array so access is via index
+// each list has entires which is also an array, access via index
+// each entry has media which is the anime data we want to access
+// there is coverImage.large which is the URL for the anime cover image. We can use this URL to display the cover image in our app.
+// and finally title which is an object with english, native, and romaji titles. We can choose which title to display based on user preference or availability.
