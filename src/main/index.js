@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join, resolve } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { exchangeCodeForToken, loginWithAniList, deleteAccessToken } from './oauth'
+import * as oauth from './oauth'
 import * as anilist from './anilist'
 import './anilist'
 
@@ -95,7 +95,7 @@ if (!gotTheLock) {
     const code = parsed.searchParams.get('code')
     console.log('Authorization code:', code)
 
-    exchangeCodeForToken(code)
+    oauth.exchangeCodeForToken(code)
   })
 
   app.whenReady().then(() => {
@@ -123,13 +123,14 @@ app.on('open-url', (event, url) => {
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   ipcMain.handle('anilist', () => 'user wants to login to anilist')
-  ipcMain.handle('loginWithAniList', () => {loginWithAniList()})
+  ipcMain.handle('loginWithAniList', () => {oauth.loginWithAniList()})
   ipcMain.handle('getDecryptedToken', () => anilist.getDecryptedToken())
-  ipcMain.handle('deleteAccessToken', () => {anilist.deleteAccessToken()})
+  ipcMain.handle('deleteAccessToken', () => {oauth.deleteAccessToken()})
   ipcMain.handle('getViewerData', () => anilist.fetchUserData())
   ipcMain.handle('getUserId', () => anilist.getUserId())
   ipcMain.handle('fetchUserAnimeList', () => anilist.fetchUserAnimeList())
   ipcMain.handle('openGitHub', () => {shell.openExternal('https://github.com/XNeme91/CS50-Final')})
+  ipcMain.handle('fetchData', () => anilist.fetchData())
 })
 
 // Quit when all windows are closed, except on macOS. There, it's common

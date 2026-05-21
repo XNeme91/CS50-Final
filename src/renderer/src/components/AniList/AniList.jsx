@@ -1,11 +1,35 @@
+import { useState, useEffect } from "react"
 import Navbar from "../Navbar/Navbar"
+import Pagination from "../Pagination/Pagination"
 
 export default function AniList() {
+    const [animeList, setAnimeList] = useState('current')
+
+    // Change anime list based on button click
+    useEffect(() => {
+        switch (animeList) {
+            case 'current':
+                break;
+            case 'planning':
+                break;
+            case 'completed':
+                break;
+            case 'dropped':
+                break;
+            case 'paused':
+                break;
+            case 'repeating':
+                break;
+        }
+    }, [animeList])
+
     return (
         <div>
             <Navbar />
+            <Pagination/>
             <h1>AniList Page</h1>
             <p>This is the AniList page.</p>
+            
             <button className="btn btn-primary" onClick={async () => {
                 // Handle login logic here
                 const result = await window.api.login()
@@ -48,6 +72,7 @@ export default function AniList() {
             }}>
                 Get Anime List
             </button>
+
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { getAccessToken } from "./oauth"
+import { getAccessToken, loginWithAniList } from "./oauth"
 
 let userId = null
 
@@ -62,13 +62,15 @@ export async function fetchUserAnimeList() {
   }
 
   const query = `
-    query ($userId: Int, $type: MediaType) {
-    MediaListCollection (userId: $userId, type: $type) {
+    query MediaList($userId: Int, $type: MediaType) {
+    MediaListCollection(userId: $userId, type: $type) {
       lists {
         name
         entries {
-          id
           media {
+            coverImage {
+              large
+            }
             id
             title {
               english
@@ -88,4 +90,14 @@ export async function fetchUserAnimeList() {
   const data = await authorizedFetch(query, variables)
   console.log('User anime list:', data)
   return data
+}
+
+export function fetchData() {
+  const token = getDecryptedToken()
+  if (!token) {
+    loginWithAniList();
+  }
+  if (token === null) return null;
+
+  return fetchUserAnimeList();
 }
