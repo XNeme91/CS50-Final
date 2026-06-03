@@ -17,9 +17,11 @@ export default function Timer({ isRunning, isLongTime, seconds, setSeconds, setI
 
     if (isLongTime) {
       setIsLongTime(false);
+      new window.Notification("Time's up!", { body: "Your long timer has ended." });
       setSeconds(Number(localStorage.getItem("shortTime")) || 300);
     } else {
       setIsLongTime(true);
+      new window.Notification("Time's up!", { body: "Your short timer has ended." });
       setSeconds(Number(localStorage.getItem("longTime")) || 3600);
     }
   }, [seconds, isLongTime, setIsLongTime, setSeconds]);
